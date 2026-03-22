@@ -30,7 +30,8 @@ export default defineConfig([
       'simple-import-sort/exports': 'error',
       // 'no-console': 'error',
       'no-console': 'off', // 学习的时候使用
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-irregular-whitespace': 'off'
     }
   }
 ])

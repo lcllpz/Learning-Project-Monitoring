@@ -1,3 +1,7 @@
+/***
+ * 指标性能采集
+ * */
+
 import { onCLS, onFCP, onINP, onLCP, onTTFB } from 'web-vitals'
 
 const performancesData = {
@@ -34,8 +38,7 @@ export const colllectWebVitals = async () => {
       handler('ttfb', onTTFB),
       handler('cls', onCLS)
     ])
-    console.log(data)
-    console.log('performancesData', performancesData)
+    console.log('performancesData', data)
   } catch (error) {
     console.log(error)
   }
@@ -43,10 +46,12 @@ export const colllectWebVitals = async () => {
   return
 }
 
-// performance api 来自定义一些指标
-// FMP
+// 计算并获取当前页面的加载时长，优先通过标准的 Performance API 精准计算，无有效数据时用备选方案兜底。
+// FMP First Meaningful Paint
 export function onLoadPerformanceFMP() {
   // 获取当前导航条数
+  // 浏览器 performance 核心 API，获取「导航类型」的性能条目（记录页面从开始加载到完成的全流程时间数据）；
+  // 包含页面导航 / 加载的所有时间维度（如 startTime、loadEventEnd 等）；
   const navigationEntries = performance.getEntriesByType('navigation')
   console.log('navigationEntries', navigationEntries)
 
@@ -64,7 +69,7 @@ export function onLoadPerformanceFMP() {
     }
 
     // 执行回调函数
-    console.log(loadTime)
+    console.log('onLoadPerformanceFMP->', loadTime)
   } else {
     // 如果没有导航条目，使用 performance.now() 作为备选
     const loadTime = performance.now()
